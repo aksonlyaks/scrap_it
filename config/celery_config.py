@@ -4,5 +4,6 @@ import os
 class CeleryConfig:
 	enable_utc = True
 	broker_url = os.environ['CELERY_BROKER_URL']
+	imports = ('scrap_it.tasks')
 	result_backend = os.environ['CELERY_RESULT_BACKEND']
 	task_always_eager = os.environ.get('CELERY_ALWAYS_EAGER', True)
