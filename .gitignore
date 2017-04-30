@@ -1,5 +1,7 @@
+# Virtual Environments
 env/*
 venv/*
 
+# Python byte code files/dir
 *.py[cod]
 __pycache__

@@ -1,3 +1,3 @@
 # Scrap_It
 
-Framework for scraping data from JSON APIs
+Scrap data from Google Maps Places using Celery task Queue.

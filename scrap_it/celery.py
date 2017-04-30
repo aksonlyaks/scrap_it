@@ -1,8 +1,8 @@
 from celery import Celery
-from scrap_it.config import CeleryConfig
+from config import CeleryConfig
+from .tasks import google_maps_resturant_search
 
 app = Celery("scrap_it")
 app.config_from_object(CeleryConfig)
 
-if __name__ == '__main__':
-    app.worker_main()
+google_maps_resturant_search.delay()
