@@ -22,11 +22,8 @@ Scrap data from Google Maps Places using Celery task Queue.
 
 Now you are ready to execute celery worker.
 
-Start Flower Monitoring dashboard (Optional):
-`flower -A scrap_it --port=5555`
+ - Start Flower Monitoring dashboard (Optional): `flower -A scrap_it --port=5555`
 
-To start celery worker execute followiing command: 
-`celery -A scrap_it worker -l info`
+ - To start celery worker execute followiing command: `celery -A scrap_it worker -l info`
 
-Finally start celery beat:
-`celery -A scrap_it beat -l info`
+ - Finally start celery beat: `celery -A scrap_it beat -l info`
