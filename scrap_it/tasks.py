@@ -2,6 +2,7 @@ import googlemaps
 import celery
 from config import GoogleMapsConfig
 from celery import current_app as app
+from celery.registry import tasks
 
 # TODO: https://blog.balthazar-rouberol.com/celery-best-practices
 class BaseTask(celery.Task):
@@ -12,7 +13,7 @@ class BaseTask(celery.Task):
 	
 	def __call__(self, *args, **kwargs):
 		"""In celery task this function call the run method, here you can
-        set some environment variable before the run of the task"""
+		set some environment variable before the run of the task"""
 		return self.run(*args, **kwargs)
 
 	def on_failure(self, exc, task_id, args, kwargs, einfo):
@@ -35,9 +36,14 @@ class BaseTask(celery.Task):
 		"""In celery task this function gets invoked when a task execute successfully."""
 		pass
 
-@app.task(bind=True, base = BaseTask, name="Google Maps Places Search")
-def google_maps_resturant_search(self):
-	gmaps = googlemaps.Client(key=GoogleMapsConfig.google_maps_api_key, 
+class GoogleMapsPlaceSearch(BaseTask):
+	
+	name = "Google Maps Place Search"
+	
+	def run(self):
+		gmaps = googlemaps.Client(key=GoogleMapsConfig.google_maps_api_key, 
 							connect_timeout = GoogleMapsConfig.connect_timeout,
 							read_timeout = GoogleMapsConfig.read_timeout)
-	response = gmaps.places("resturants")
+		response = gmaps.places("resturants")
+
+tasks.register(GoogleMapsPlaceSearch)
