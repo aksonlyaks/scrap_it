@@ -1,7 +1,7 @@
 import googlemaps
 import celery
 from config import GoogleMapsConfig
-from celery import current_app as app
+from .celery import app
 from celery.registry import tasks
 
 # TODO: https://blog.balthazar-rouberol.com/celery-best-practices
@@ -36,14 +36,18 @@ class BaseTask(celery.Task):
 		"""In celery task this function gets invoked when a task execute successfully."""
 		pass
 
-class GoogleMapsPlaceSearch(BaseTask):
-	
-	name = "Google Maps Place Search"
-	
-	def run(self):
-		gmaps = googlemaps.Client(key=GoogleMapsConfig.google_maps_api_key, 
-							connect_timeout = GoogleMapsConfig.connect_timeout,
-							read_timeout = GoogleMapsConfig.read_timeout)
-		response = gmaps.places("resturants")
 
-tasks.register(GoogleMapsPlaceSearch)
+"""Using task decorator instead of class based tasks
+is the recommended way to define concrete tasks For details check 
+out following links:
+https://github.com/celery/celery/issues/2758
+https://github.com/celery/celery/issues/3645"""
+@app.task(bind=True, base=BaseTask, name="Google Maps Place Search")
+def google_maps_place_search(self):
+	gmaps = googlemaps.Client(key=GoogleMapsConfig.google_maps_api_key, 
+						connect_timeout = GoogleMapsConfig.connect_timeout,
+						read_timeout = GoogleMapsConfig.read_timeout)
+	response = gmaps.places("resturants")
+	print(response)
+
+google_maps_place_search.apply_async()
