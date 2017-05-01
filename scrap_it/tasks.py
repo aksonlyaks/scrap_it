@@ -4,7 +4,8 @@ from config import GoogleMapsConfig
 from .celery import app
 from celery.registry import tasks
 
-# TODO: https://blog.balthazar-rouberol.com/celery-best-practices
+# FIXME: Need a way to properly handle task from scheduler to worker.
+# TODO: https://blog.balthazar-rouberol.com/celery-best-practices.
 class BaseTask(celery.Task):
 	"""This class is base for all Celery Tasks. This class can be used to perform 
 	generic action e.g. logging for all tasks defined. Each method of this class
@@ -48,6 +49,4 @@ def google_maps_place_search(self):
 						connect_timeout = GoogleMapsConfig.connect_timeout,
 						read_timeout = GoogleMapsConfig.read_timeout)
 	response = gmaps.places("resturants")
-	print(response)
-
-google_maps_place_search.apply_async()
+	return response
