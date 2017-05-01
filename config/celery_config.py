@@ -12,4 +12,4 @@ class CeleryConfig:
 	task_eager_propagates = os.environ.get('CELERY_EAGER_PROPAGATES', False)
 	task_serializer = 'json'
 	database_table_names = {'task': 'scrap_taskmeta','group': 'scrap_groupmeta',}
-	beat_schedule = {'run-every-30-seconds':{'task':'google_maps_place_search', 'schedule':crontab(minute='*/1')}}
+	beat_schedule = {'run-every-30-seconds':{'task':'Google-Maps-Place-Search', 'schedule':crontab(minute='*/1')}}

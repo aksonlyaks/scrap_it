@@ -43,7 +43,7 @@ is the recommended way to define concrete tasks For details check
 out following links:
 https://github.com/celery/celery/issues/2758
 https://github.com/celery/celery/issues/3645"""
-@app.task(bind=True, base=BaseTask, name="Google Maps Place Search")
+@app.task(bind=True, base=BaseTask, name="Google-Maps-Place-Search")
 def google_maps_place_search(self):
 	gmaps = googlemaps.Client(key=GoogleMapsConfig.google_maps_api_key, 
 						connect_timeout = GoogleMapsConfig.connect_timeout,
