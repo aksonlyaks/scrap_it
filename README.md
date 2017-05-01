@@ -7,8 +7,8 @@ Scrap data from Google Maps Places using Celery task Queue.
  - Clone the Repository : `git clone git@github.com:sohaibfarooqi/scrap_it.git`
  
  - Create Virtual Environment (Recommended):
- 	- `virtualenv -p <path-to-python-executable> venv`
- 	- source venv/bin/activate
+ 	- Create Virtual Env: `virtualenv -p <path-to-python-executable> venv`
+ 	- Activate Virtual Env: `source venv/bin/activate`
 
 - Install Dependencies `pip install -r requirements.txt`
 
